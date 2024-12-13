@@ -5,53 +5,50 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddVendor() {
-  const nameE = useRef(null);
-  const phoneNoE = useRef(null);
-  const vechileNoE = useRef(null);
-  const fatE = useRef(null);
-  const snfE = useRef(null);
-
   // To handle form submit
   function handleSubmit(e) {
     e.preventDefault();
-    if (nameE.current.value === "") {
-      toast.error("Name Can Not be Empty");
-    } else if (phoneNoE.current.value === "") {
-      toast.error("Enter Atleast 1 Phone Number");
-    } else if (vechileNoE.current.value === "") {
-      toast.error("Enter Atleast 1 Vechile NUmber");
-    } else if (fatE.current.value === "") {
-      toast.error("Enter Fat Value");
-    } else if (snfE.current.value === "") {
-      toast.error("Enter Snf Value");
-    } else {
-      const formData = new FormData(e.target);
-      let dataToBeSend = {
-        name: "",
-        phoneNumber: [],
-        vechileNumber: [],
-      };
-      for (const [key, value] of formData.entries()) {
-        if (key.startsWith("phoneNumber")) {
+    const formData = new FormData(e.target);
+    let dataToBeSend = {
+      name: "",
+      phoneNumber: [],
+      vechileNumber: [],
+    };
+    for (const [key, value] of formData.entries()) {
+      if (key.startsWith("phoneNumber")) {
+        if (value != "") {
           dataToBeSend["phoneNumber"].push(value);
-        } else if (key.startsWith("vechileNumber")) {
-          dataToBeSend["vechileNumber"].push(value);
-        } else {
-          dataToBeSend[`${key}`] = value;
         }
+      } else if (key.startsWith("vechileNumber")) {
+        if (value != "") {
+          dataToBeSend["vechileNumber"].push(value);
+        }
+      } else {
+        dataToBeSend[`${key}`] = value;
       }
-      console.log(dataToBeSend);
+    }
 
-      if (dataToBeSend.balanceAmount === "") {
-        dataToBeSend.balanceAmount = 0;
-      }
+    if (dataToBeSend.balanceAmount === "") {
+      dataToBeSend.balanceAmount = 0;
+    }
 
-      dataToBeSend.fatRate= + dataToBeSend.fatRate;
-      dataToBeSend.snfRate= + dataToBeSend.snfRate;
-      dataToBeSend.balanceAmount= + dataToBeSend.balanceAmount;
+    dataToBeSend.fatRate = +dataToBeSend.fatRate;
+    dataToBeSend.snfRate = +dataToBeSend.snfRate;
+    dataToBeSend.balanceAmount = +dataToBeSend.balanceAmount;
 
-
+    if (dataToBeSend.name === "") {
+      toast.error("Enter Vendor Name");
+    } else if (dataToBeSend.phoneNumber.length === 0) {
+      toast.error("Enter Atleast 1 Phone Number");
+    } else if (dataToBeSend.vechileNumber.length === 0) {
+      toast.error("Enter Atleast 1 Vechile Number");
+    } else if (dataToBeSend.fatRate === 0) {
+      toast.error("Enter Fat Rate");
+    } else if (dataToBeSend.snfRate === 0) {
+      toast.error("Enter Snf Rate");
+    } else {
       //  lets make endpoint here
+      console.log(dataToBeSend);
       axios
         .post("", dataToBeSend)
         .then((response) => {
@@ -64,7 +61,7 @@ function AddVendor() {
   }
 
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       {/* for heading */}
       <h1 className={`text-3xl font-bold text-center `}>Add New Vendor</h1>
 
@@ -77,7 +74,6 @@ function AddVendor() {
             type="text"
             className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
             name="name"
-            ref={nameE}
           />
         </div>
 
@@ -89,7 +85,6 @@ function AddVendor() {
               type="text"
               className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
               name="phoneNumber-1"
-              ref={phoneNoE}
             />
           </div>
 
@@ -112,7 +107,6 @@ function AddVendor() {
               type="text"
               className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
               name="vechileNumber-1"
-              ref={vechileNoE}
             />
           </div>
 
@@ -144,7 +138,6 @@ function AddVendor() {
             type="text"
             className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
             name="fatRate"
-            ref={fatE}
           />
         </div>
 
@@ -155,7 +148,6 @@ function AddVendor() {
             type="text"
             className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
             name="snfRate"
-            ref={snfE}
           />
         </div>
 
@@ -181,4 +173,3 @@ function AddVendor() {
 }
 
 export default AddVendor;
-

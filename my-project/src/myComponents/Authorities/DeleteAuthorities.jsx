@@ -39,7 +39,7 @@ function DeleteAuthorities() {
   }
 
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       <h1 className="text-3xl font-bold text-center">Delete Authority</h1>
 
       <FilterComponent
@@ -59,7 +59,7 @@ function DeleteAuthorities() {
             <h1>Name :</h1>
             <input
               type="text"
-              className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
+              className="w-full outline-none bg-transparent p-2 border-2 rounded-md cursor-not-allowed"
               name="name"
               value={`${selectedClient.name}`}
               readOnly
@@ -71,7 +71,7 @@ function DeleteAuthorities() {
             <h1>Password :</h1>
             <input
               type="text"
-              className="w-full outline-none bg-transparent p-2 border-2 rounded-md"
+              className="w-full outline-none bg-transparent p-2 border-2 rounded-md cursor-not-allowed"
               name="password"
               value={`${selectedClient.password}`}
               readOnly

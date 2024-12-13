@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FilterComponent from "../filterComponent/FilterComponent.jsx";
 import axios from "axios";
 import ProductFilterComponent from "../filterComponent/ProductFilterComponent.jsx";
+import { toast } from "react-toastify";
 function DeleteProduct() {
   const [allProductVendor, setProductVendor] = useState(null);
   const [selectedVendor, setSelectedVendor] = useState(null);
@@ -24,6 +25,10 @@ function DeleteProduct() {
       });
   }, []);
 
+  useEffect(() => {
+    setSelectedProduct(null);
+  }, [selectedVendor]);
+
   if (loading) {
     return (
       <p className="text-white animate-pulse mt-5 text-center">Loading ...</p>
@@ -32,10 +37,30 @@ function DeleteProduct() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e);
+    const dataToSend = {
+      vendorId: selectedVendor._id,
+    };
+    const formData = new FormData(e.target);
+
+    for (const [key, value] of formData.entries()) {
+      dataToSend[key] = value;
+    }
+    axios
+      .put("", dataToSend)
+      .then((response) => {
+        if (response.data.success) {
+          toast.success("Product Deleted Successfully");
+        } else {
+          toast.error("Something Went Wrong");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Server Issue");
+      });
   }
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
       <div className="">
         <h1>Select Product Vendor From The List :</h1>{" "}
@@ -66,6 +91,7 @@ function DeleteProduct() {
                   value={selectedProduct.productName}
                   className="w-full outline-none bg-transparent p-2 border-2 rounded-md cursor-not-allowed"
                   readOnly
+                  name="productName"
                 />
               </div>
               {/* For HSN Code */}
@@ -76,6 +102,7 @@ function DeleteProduct() {
                   value={selectedProduct.HSN}
                   className="w-full outline-none bg-transparent p-2 border-2 rounded-md cursor-not-allowed"
                   readOnly
+                  name="HSN"
                 />
               </div>
             </div>

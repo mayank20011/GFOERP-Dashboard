@@ -5,14 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function UpdateVendor() {
-  // for errors
-  const nameE = useRef(null);
-  const fatE = useRef(null);
-  const snfE = useRef(null);
-  const balanceE = useRef(null);
-  const vNoE = useRef(null);
-  const phNoE = useRef(null);
-
   const [vendorNames, setVendorNames] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVendor, setSelectedVendor] = useState(null);
@@ -27,44 +19,46 @@ function UpdateVendor() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (nameE.current.value === "") {
-      toast.error("Enter Name of the Vendor");
-    } else if (fatE.current.value === "") {
-      toast.error("Enter fat Rate");
-    } else if (snfE.current.value === "") {
-      toast.error("Enter snf Rate");
-    } else if (phNoE.current.value === "") {
-      console.log(phNoE.current.value)
-      toast.error("Enter Atleast 1 Phone Number");
-    } else if (vNoE.current.value === "") {
-      toast.error("Enter Atleast 1 Vechile Number");
-    } else if (balanceE.current.value === "") {
-      toast.error("Enter balanceAmount");
-    } else {
-      const formData = new FormData(e.target);
 
-      let dataToBeSend = {
-        name: "",
-        phoneNumber: [],
-        vechileNumber: [],
-      };
+    const formData = new FormData(e.target);
 
-      // Iterate through FormData entries
-      for (const [key, value] of formData.entries()) {
-        if (key.startsWith("phoneNumber")) {
+    let dataToBeSend = {
+      name: "",
+      phoneNumber: [],
+      vechileNumber: [],
+    };
+
+    // Iterate through FormData entries
+    for (const [key, value] of formData.entries()) {
+      if (key.startsWith("phoneNumber")) {
+        if (value != "") {
           dataToBeSend["phoneNumber"].push(value);
-        } else if (key.startsWith("vechileNumber")) {
-          dataToBeSend["vechileNumber"].push(value);
-        } else {
-          dataToBeSend[key] = value;
         }
+      } else if (key.startsWith("vechileNumber")) {
+        if (value != "") {
+          dataToBeSend["vechileNumber"].push(value);
+        }
+      } else {
+        dataToBeSend[key] = value;
       }
+    }
 
-      console.log(dataToBeSend);
-      dataToBeSend.fatRate = + dataToBeSend.fatRate;
-      dataToBeSend.snfRate = + dataToBeSend.snfRate;
-      dataToBeSend.balanceAmount= + dataToBeSend.balanceAmount;
-      
+    dataToBeSend.fatRate = +dataToBeSend.fatRate;
+    dataToBeSend.snfRate = +dataToBeSend.snfRate;
+    dataToBeSend.balanceAmount = +dataToBeSend.balanceAmount;
+    console.log(dataToBeSend);
+
+    if (dataToBeSend.name === "") {
+      toast.error("Enter Vendor Name");
+    } else if (dataToBeSend.phoneNumber.length === 0) {
+      toast.error("Enter Atleast 1 Phone Number");
+    } else if (dataToBeSend.vechileNumber.length === 0) {
+      toast.error("Enter Atleast 1 Vechile Number");
+    } else if (dataToBeSend.fatRate === 0) {
+      toast.error("Enter Fat Rate");
+    } else if (dataToBeSend.snfRate === 0) {
+      toast.error("Enter Snf Rate");
+    } else {
       // End point for the container
       axios
         .patch("", dataToBeSend)
@@ -103,11 +97,11 @@ function UpdateVendor() {
   }, []);
 
   if (loading) {
-    return <p className="animate pulse">Loading ... </p>;
+    return <p className="animate pulse text-center my-12">Loading ... </p>;
   }
 
   return (
-    <div className="text-white my-6 w-full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w-full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       {/* for heading */}
       <h1 className="text-3xl font-bold text-center">Update Vendor :</h1>
 
@@ -139,7 +133,6 @@ function UpdateVendor() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 name="name"
-                ref={nameE}
               />
             </div>
 
@@ -158,7 +151,6 @@ function UpdateVendor() {
                       setPhoneNumbers(updatedNumbers);
                     }}
                     name={`phoneNumber-${index}`}
-                    ref={index == 0 ? phNoE : null}
                   />
                 ))}
               </div>
@@ -179,7 +171,6 @@ function UpdateVendor() {
                       setVehicleNumbers(updatedNumbers);
                     }}
                     name={`vechileNumber-${index}`}
-                    ref={index == 0 ? vNoE : null}
                   />
                 ))}
               </div>
@@ -194,7 +185,6 @@ function UpdateVendor() {
                 value={fatRate}
                 onChange={(e) => setFatRate(e.target.value)}
                 name="fatRate"
-                ref={fatE}
               />
             </div>
 
@@ -207,7 +197,6 @@ function UpdateVendor() {
                 value={snfRate}
                 onChange={(e) => setSnfRate(e.target.value)}
                 name="snfRate"
-                ref={snfE}
               />
             </div>
 
@@ -220,7 +209,6 @@ function UpdateVendor() {
                 value={balanceAmount}
                 onChange={(e) => setBalanceAmount(e.target.value)}
                 name="balanceAmount"
-                ref={balanceE}
               />
             </div>
           </div>

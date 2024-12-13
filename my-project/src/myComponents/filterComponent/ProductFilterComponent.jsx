@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // This component will take a array of obj as input and then create a list from the names from the objects
 
@@ -13,10 +13,19 @@ function ProductFilterComponent({ productVendor, setSelectedVendor }) {
   // to open and close list
   const [openList, setOpenList] = useState(false);
 
+  useEffect(() => {
+    setCopyProductVendor(productVendor);
+    setOpenList(false);
+    if(nameInput.current)
+      {
+        nameInput.current.value="";
+      }
+  }, [productVendor]);
+
   // to handle onChange event of input field
   function handlKeyStrokes(e) {
     console.log(e.target.value);
-    console.log(productVendor)
+    console.log(productVendor);
     const filteredProducts = productVendor.filter((product) =>
       product.productName.toLowerCase().startsWith(e.target.value.toLowerCase())
     );

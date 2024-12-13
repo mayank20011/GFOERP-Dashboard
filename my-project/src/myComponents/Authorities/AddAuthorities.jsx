@@ -47,7 +47,7 @@ function AddAuthorities() {
   }
 
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
 
       {/* for form */}

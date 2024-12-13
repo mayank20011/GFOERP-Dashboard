@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens:{
+        'sabp':{max :'1200px', min:'768px'},
+        'mv':{max:'800px'}
+      }
+    },
   },
   plugins: [],
 }

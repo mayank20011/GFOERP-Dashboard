@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import FilterComponent from "../filterComponent/FilterComponent.jsx";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function AddProduct() {
 
@@ -32,18 +33,41 @@ function AddProduct() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(selectedVendor._id);
     const dataToBeSend=
     {
       vendorId:selectedVendor._id,
       productName:ProductName.current.value,
       HSN:productHsn.current.value
     }
-    console.log(dataToBeSend);
+    if(dataToBeSend.productName==="")
+      {
+         toast.error("Enter Product Name");
+      }
+    else if(dataToBeSend.HSN=="")
+      {
+        toast.error("Enter Product's HSN Code");
+      }
+    else{
+      // End Point Here
+      axios.post("",dataToBeSend)
+      .then((res)=>{
+        if(res.data.success){
+         toast.success("Product Saved SuccessFully");
+         ProductName.current.value="";
+         productHsn.current.value="";
+        }
+        else{
+          toast.error("Something Went Wrong");
+        }
+      })
+      .catch((err)=>{
+         toast.error("Server Problem");
+      })
+    }
   }
 
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
 
       <div className="">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FilterComponent from "../filterComponent/FilterComponent.jsx";
+import { toast } from "react-toastify";
 
 function UpdateAuthorities() {
   const [authorities, setAuthorities] = useState(null);
@@ -80,16 +81,24 @@ function UpdateAuthorities() {
       password: formData.password,
       roles: formData.roles,
     };
-    
-    console.log(dataToSend);
-    axios
-      .post("your-endpoint-url", dataToSend)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    if (dataToSend.name == "") {
+      toast.error("Name Cant Be Empty");
+    } else if (dataToSend.password == "") {
+      toast.error("PassWord Cant be Empty");
+    } else if (dataToSend.roles.length == 0) {
+      toast.error("Asign Atleat 1 Role");
+    } else {
+      console.log(dataToSend);
+      axios
+        .post("your-endpoint-url", dataToSend)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   if (loading) {
@@ -97,7 +106,7 @@ function UpdateAuthorities() {
   }
 
   return (
-    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6">
+    <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
       <h1 className="text-3xl font-bold text-center">Update New Authority</h1>
 
       <div>
