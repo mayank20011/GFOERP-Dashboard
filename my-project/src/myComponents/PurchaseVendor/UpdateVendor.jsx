@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function UpdateVendor() {
+
+  const form=useRef(null);
+  const [buttonLoading, setButtonLoading]=useState(null);
   const [vendorNames, setVendorNames] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVendor, setSelectedVendor] = useState(null);
@@ -18,8 +21,8 @@ function UpdateVendor() {
   const [name, setName] = useState("");
 
   function handleSubmit(e) {
-    e.preventDefault();
 
+    e.preventDefault();
     const formData = new FormData(e.target);
 
     let dataToBeSend = {
@@ -27,6 +30,11 @@ function UpdateVendor() {
       phoneNumber: [],
       vechileNumber: [],
     };
+    
+    function resetForm()
+    {
+      setSelectedVendor(null);
+    }
 
     // Iterate through FormData entries
     for (const [key, value] of formData.entries()) {
@@ -42,6 +50,8 @@ function UpdateVendor() {
         dataToBeSend[key] = value;
       }
     }
+
+    dataToBeSend._id=selectedVendor._id;
 
     dataToBeSend.fatRate = +dataToBeSend.fatRate;
     dataToBeSend.snfRate = +dataToBeSend.snfRate;
@@ -59,14 +69,21 @@ function UpdateVendor() {
     } else if (dataToBeSend.snfRate === 0) {
       toast.error("Enter Snf Rate");
     } else {
+      setButtonLoading(true);
       // End point for the container
       axios
-        .patch("", dataToBeSend)
+        .put("http://localhost:5000/GFOERP/PurchaseVendors", dataToBeSend)
         .then((response) => {
-          console.log(response.data);
+          if(response.data.success)
+            {
+              toast.success("Updated Succeffully");
+              resetForm();
+              setButtonLoading(false);
+            }
         })
         .catch((err) => {
           console.log(err);
+          setButtonLoading(false);
         });
     }
   }
@@ -121,6 +138,7 @@ function UpdateVendor() {
           selectedVendor ? "border border-red-600" : ""
         }`}
         onSubmit={handleSubmit}
+        ref={form}
       >
         {selectedVendor === null ? null : (
           <div className="space-y-2">
@@ -219,7 +237,7 @@ function UpdateVendor() {
             type="submit"
             className="bg-green-600 p-3 px-5 rounded-md hover:scale-95 transition"
           >
-            Update Vendor
+            {buttonLoading ? <p className="animate-pulse">Updating ...</p>:<p>Update Vendor</p>}
           </button>
         ) : null}
       </form>

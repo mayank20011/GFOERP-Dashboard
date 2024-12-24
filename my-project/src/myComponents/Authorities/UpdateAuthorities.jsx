@@ -4,6 +4,7 @@ import FilterComponent from "../filterComponent/FilterComponent.jsx";
 import { toast } from "react-toastify";
 
 function UpdateAuthorities() {
+
   const [authorities, setAuthorities] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -89,20 +90,28 @@ function UpdateAuthorities() {
     } else if (dataToSend.roles.length == 0) {
       toast.error("Asign Atleat 1 Role");
     } else {
+      dataToSend.id=selectedClient._id;
       console.log(dataToSend);
       axios
-        .post("your-endpoint-url", dataToSend)
+        .put("http://localhost:5000/GFOERP/UserLogin/", dataToSend)
         .then((response) => {
-          console.log(response.data);
+          if(response.data.success){
+            toast.success("Updated Successfully");
+
+          }
+          else{
+            toast.error("Something Went Wrong, Try Again");
+          }
         })
         .catch((err) => {
           console.log(err);
+          toast.error("Server Problem");
         });
     }
   }
 
   if (loading) {
-    return <p>Loading ...</p>;
+    return <p className="text-center py-2">Loading ...</p>;
   }
 
   return (

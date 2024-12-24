@@ -3,6 +3,7 @@ import Authority from "../Authorities/Authority.jsx";
 import ProductVendor from "../productsVendors/ProductVendor.jsx";
 import AddPurchaseVendor from "../PurchaseVendor/AddPurchaseVendor.jsx";
 import { useState, useRef } from "react";
+import Clients from "../Clients/clients.jsx";
 
 function Dashboard() {
   const nav = useRef(null);
@@ -72,22 +73,38 @@ function Dashboard() {
             <i className="fa-solid fa-user-plus text-neutral-700 dark:text-neutral-200 w-5 h-5 flex-shrink-0"></i>
             <p>Add Authority</p>
           </div>
+
+          <div
+            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            onClick={() => {
+              closeNav();
+              setShowComponent("Client");
+            }}
+          >
+            <i className="fa-regular fa-user text-neutral-700 w-5 h-5 dark:text-neutral-200 flex-shrink-0"></i>
+            <p>Clients</p>
+          </div>
+
         </div>
       </div>
 
-      {/* For Content */}
-      <div className="w-full justify-end px-2 hidden mv:flex" onClick={navInOut}>
+      {/* For mobile nav */}
+      <div
+        className="w-full justify-end px-2 hidden mv:flex"
+        onClick={navInOut}
+      >
         <i className="fa-solid fa-bars p-2 cursor-pointer text-xl"></i>
       </div>
-      <div className="rounded-tl-xl bg-neutral-900 grow md:py-6 px-6">
-        {/* For mobile nav */}
-
+      <div className="rounded-tl-xl bg-neutral-900 grow md:py-6 px-6 h-screen overflow-y-auto">
+        {/* For Content */}
         {showComponent === "Purchase" ? (
           <AddPurchaseVendor />
         ) : showComponent === "Authority" ? (
           <Authority />
         ) : showComponent === "Product" ? (
           <ProductVendor />
+        ) : showComponent === "Client" ? (
+          <Clients />
         ) : null}
       </div>
     </div>

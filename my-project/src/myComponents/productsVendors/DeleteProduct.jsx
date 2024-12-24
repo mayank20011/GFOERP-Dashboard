@@ -37,19 +37,20 @@ function DeleteProduct() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const dataToSend = {
-      vendorId: selectedVendor._id,
-    };
+    const dataToSend = {};
     const formData = new FormData(e.target);
 
     for (const [key, value] of formData.entries()) {
       dataToSend[key] = value;
     }
+    console.log(dataToSend);
+
     axios
-      .put("", dataToSend)
+      .delete(`http://localhost:5000/GFOERP/ProductsVendors/${selectedVendor._id}/${dataToSend.HSN}`)
       .then((response) => {
         if (response.data.success) {
           toast.success("Product Deleted Successfully");
+          setSelectedVendor(null);
         } else {
           toast.error("Something Went Wrong");
         }
@@ -61,7 +62,7 @@ function DeleteProduct() {
   }
   return (
     <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
-      <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
+      <h1 className="text-3xl font-bold text-center">Delete Product :</h1>
       <div className="">
         <h1>Select Product Vendor From The List :</h1>{" "}
         <FilterComponent

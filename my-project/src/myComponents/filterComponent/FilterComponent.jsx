@@ -8,7 +8,7 @@ function FilterComponent({ clients, setSelectedVendor }) {
   // to create a copy of clients for applying filter
   const [copyClients, setCopyClients] = useState(clients);
 
-  // refrence for the input
+  // refrence for the input 
   const nameInput = useRef(null);
 
   // to open and close list

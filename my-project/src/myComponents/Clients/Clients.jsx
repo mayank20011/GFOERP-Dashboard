@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import AddProduct from "./AddProduct.jsx";
-import UpdateProduct from "./UpdateProduct.jsx";
-import DeleteProduct from "./DeleteProduct.jsx";
+import React from "react";
+import { useState } from "react";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddProductVendor from "./AddProductVendor.jsx";
+import AddClients from "./AddClients.jsx";
+import UpdateClients from "./UpdateClients.jsx";
+import DeleteClients from "./DeleteClients.jsx";
 
-function ProductVendor() {
+function Clients() {
   const [select, setSelect] = useState("Add");
+
   return (
     <div className="flex w-full flex-col justify-center py-12 md:py-0">
       <ToastContainer
@@ -25,7 +26,6 @@ function ProductVendor() {
       />
       {/* button */}
       <div className="flex gap-4 justify-center">
-        {/* button-1 */}
         <button
           className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
             select === "Add" ? "text-black bg-white" : "text-white"
@@ -34,10 +34,8 @@ function ProductVendor() {
             setSelect("Add");
           }}
         >
-          Add products
+          Add New Client
         </button>
-
-        {/* button-2 */}
         <button
           className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
             select === "Update" ? "text-black bg-white" : "text-white"
@@ -46,10 +44,8 @@ function ProductVendor() {
             setSelect("Update");
           }}
         >
-          Update Products
+          Update a Client
         </button>
-
-        {/* button-3 */}
         <button
           className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
             select === "Delete" ? "text-black bg-white" : "text-white"
@@ -58,37 +54,20 @@ function ProductVendor() {
             setSelect("Delete");
           }}
         >
-          Delete Products
-        </button>
-
-        {/* button-3 */}
-        <button
-          className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
-            select === "Add Vendor" ? "text-black bg-white" : "text-white"
-          }`}
-          onClick={() => {
-            setSelect("Add Vendor");
-          }}
-        >
-          Add Vendor
+          Delete a Client
         </button>
       </div>
 
       {/* div to update or show */}
-
-      <div>
-        {select === "Add" ? (
-          <AddProduct />
-        ) : select === "Update" ? (
-          <UpdateProduct />
-        ) : select === "Delete" ? (
-          <DeleteProduct />
-        ) : (
-          <AddProductVendor />
-        )}
-      </div>
+      {select === "Add" ? (
+        <AddClients />
+      ) : select === "Update" ? (
+        <UpdateClients />
+      ) : (
+        <DeleteClients />
+      )}
     </div>
   );
 }
 
-export default ProductVendor;
+export default Clients;

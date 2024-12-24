@@ -1,10 +1,15 @@
 import React from "react";
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddVendor() {
+  const [loading, setLoading] = useState(false);
+
+  // for clearing form
+  const form = useRef(null);
+
   // To handle form submit
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,6 +19,7 @@ function AddVendor() {
       phoneNumber: [],
       vechileNumber: [],
     };
+
     for (const [key, value] of formData.entries()) {
       if (key.startsWith("phoneNumber")) {
         if (value != "") {
@@ -47,16 +53,43 @@ function AddVendor() {
     } else if (dataToBeSend.snfRate === 0) {
       toast.error("Enter Snf Rate");
     } else {
+
+      // to make vendor in purchaseData;
+      const vendorPurchaseDataSkeleton = {
+        vendorName: `${dataToBeSend.name}`,
+        purchaseRecord: [],
+      };
       //  lets make endpoint here
-      console.log(dataToBeSend);
+      setLoading(true);
       axios
-        .post("", dataToBeSend)
+        .post("http://localhost:5000/GFOERP/PurchaseVendors", dataToBeSend)
         .then((response) => {
-          console.log(response.data);
+          if (response.data.success) {
+            toast.success("Created Successfully");
+            form.current.reset();
+            setLoading(false);
+          } else {
+            setLoading(false);
+            toast.error("Something Went Wrong, Try again");
+          }
         })
         .catch((err) => {
           console.log(err);
         });
+      
+      // to make a vendor in purchaseData
+      axios.post("http://localhost:5000/GFOERP/PurchaseData/createRecord",vendorPurchaseDataSkeleton)
+      .then((response)=>{
+         if(response.data.success){
+             toast.success("Vendor Created in Purchase Data");
+         }
+         else{
+           toast.error("Can't Create Vendor in purchase Data");
+         }
+      })
+      .catch((err)=>{
+         toast.error('Server Problem');
+      });
     }
   }
 
@@ -66,7 +99,7 @@ function AddVendor() {
       <h1 className={`text-3xl font-bold text-center `}>Add New Vendor</h1>
 
       {/* for form */}
-      <form action="" className="space-y-2" onSubmit={handleSubmit}>
+      <form action="" className="space-y-2" onSubmit={handleSubmit} ref={form}>
         {/* for vendorName div */}
         <div className="">
           <h1>Enter Vendor Name :</h1>
@@ -165,7 +198,11 @@ function AddVendor() {
           type="submit"
           className="bg-green-600 p-3 px-5 rounded-md hover:scale-95 transition"
         >
-          Create Venvor
+          {loading ? (
+            <p className="animate-pulse">Creating Vendor ...</p>
+          ) : (
+            <p>Create Vendor</p>
+          )}
         </button>
       </form>
     </div>

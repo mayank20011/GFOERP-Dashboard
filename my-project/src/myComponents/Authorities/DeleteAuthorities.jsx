@@ -2,22 +2,30 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FilterComponent from "../filterComponent/FilterComponent";
+import { toast } from "react-toastify";
 
 function DeleteAuthorities() {
+  
   const [authorities, setAuthorities] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const [loading, setLoading] = useState(true);
 
   function handleSubmit(e){
     e.preventDefault();
-    console.log(selectedClient._id);
     // api end point
-    axios.delete("",{ id : selectedClient._id})
+    axios.delete(`http://localhost:5000/GFOERP/UserLogin/${selectedClient._id}`)
     .then((response)=>
       {
-        console.log(response);
+        if(response.data.success){
+           toast.success("Deleted Successfully");
+           setSelectedClient(null);
+        }
+        else{
+          toast.error("Something Went Wrong, Try Again");
+        }
       })
     .catch((err)=>{
+      toast.error("Server Problem");
       console.log(err);
     });
   }
@@ -35,7 +43,7 @@ function DeleteAuthorities() {
   }, []);
 
   if (loading) {
-    return <p>Loading Authorities Name ....</p>;
+    return <p className="text-center py-2">Loading Authorities Name ....</p>;
   }
 
   return (

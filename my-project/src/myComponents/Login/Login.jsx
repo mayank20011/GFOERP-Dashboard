@@ -2,14 +2,17 @@ import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 function Login({setLoginAllowed}) {
+
+  const [loading, setLoading]=useState(null);
+
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const dataToSend = {};
     for (const [key, value] of formData.entries()) {
-      console.log(key, value);
       dataToSend[key] = value;
     }
     if (dataToSend.name === "") {
@@ -17,16 +20,21 @@ function Login({setLoginAllowed}) {
     } else if (dataToSend.password === "") {
       toast.error("Password can not be Empty");
     } else {
-      console.log(dataToSend);
+      setLoading(true);
       axios.post("http://localhost:5000/GFOERP/UserLogin/",dataToSend)
         .then((res)=>
           {
-            console.log(res);
             if(res.data.authorization){
-               setLoginAllowed(true);
+              if(res.data.roles.includes('dashBoard')){
+               setLoginAllowed(true);}
+               else{
+                toast.warning("Access Denied");
+               }
+               setLoading(false);
             }
             else{
               toast.error("No Such User");
+              setLoading(false);
             }
           })
         .catch((err) => {
@@ -68,7 +76,7 @@ function Login({setLoginAllowed}) {
           type="submit"
           className="px-4 py-2 rounded-md border border-neutral-900 bg-neutral-900 w-full transition hover:scale-95"
         >
-          Login
+          {loading? <p className="animate-pulse">Loging in ...</p>:<p>Login</p>}
         </button>
       </form>
     </div>

@@ -49,7 +49,8 @@ function AddProduct() {
       }
     else{
       // End Point Here
-      axios.post("",dataToBeSend)
+      console.log(dataToBeSend);
+      axios.post("http://localhost:5000/GFOERP/ProductsVendors/",dataToBeSend)
       .then((res)=>{
         if(res.data.success){
          toast.success("Product Saved SuccessFully");
@@ -68,7 +69,7 @@ function AddProduct() {
 
   return (
     <div className="text-white my-6 w:full md:w-3/5 mx-auto p-3 flex flex-col gap-6 sabp:w-4/5">
-      <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
+      <h1 className="text-3xl font-bold text-center">Add New Product :</h1>
 
       <div className="">
         <h1>Select Product Vendor From The List :</h1>

@@ -2,7 +2,9 @@ import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRef } from "react";
 function AddAuthorities() {
+
   const rights = [
     "sale",
     "purchase",
@@ -13,6 +15,7 @@ function AddAuthorities() {
     "dashBoard",
   ];
 
+  const form=useRef(null);
   function handleSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -36,11 +39,18 @@ function AddAuthorities() {
       toast.error("Asign Atleast 1 role");
     } else {
       axios
-        .post("", dataToSend)
+        .post("http://localhost:5000/GFOERP/UserLogin/addUser", dataToSend)
         .then((response) => {
-          console.log(response.data);
+          if(response.data.success){
+            toast.success("New Authority Created");
+            form.current.reset();
+          }
+          else{
+            toast.error("Cant Create, Try again")
+          }
         })
         .catch((err) => {
+          toast.error("Server Problem");
           console.log(err);
         });
     }
@@ -51,7 +61,7 @@ function AddAuthorities() {
       <h1 className="text-3xl font-bold text-center">Add New Authority</h1>
 
       {/* for form */}
-      <form action="" className="space-y-3 w-full" onSubmit={handleSubmit}>
+      <form action="" className="space-y-3 w-full" onSubmit={handleSubmit} ref={form}>
         {/* for AuthorityName div */}
         <div>
           <h1>Enter Name :</h1>
@@ -87,7 +97,6 @@ function AddAuthorities() {
                   type="checkBox"
                   className="cursor-pointer"
                   name={right}
-                  // ref={right}
                 />
                 <p className="capitalize">{right}</p>
               </div>
