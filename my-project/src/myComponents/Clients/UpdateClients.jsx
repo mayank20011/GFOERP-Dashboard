@@ -23,7 +23,7 @@ function UpdateClients() {
   useEffect(() => {
     if (vendors === null) {
       axios
-        .get("http://localhost:5000/GFOERP/ProductsVendors/vendorNames")
+        .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/vendorNames")
         .then((response) => {
           if (response.data.success) {
             setVendors(response.data.data);
@@ -46,7 +46,7 @@ function UpdateClients() {
     dataToSend[`clientName`]=nameValue;
     console.log(dataToSend);
     if(dataToSend.clientName!=""){
-      axios.put("http://localhost:5000/GFOERP/RouteClient/",dataToSend)
+      axios.put("https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/",dataToSend)
       .then((response)=>{
         if(response.data.success){
           toast.success(`Updated SuccessFully`);
@@ -68,7 +68,7 @@ function UpdateClients() {
   }
 
   function loadClients() {
-    const reqURL = `http://localhost:5000/GFOERP/RouteClient/${selectedVendor.name}`;
+    const reqURL = `https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/${selectedVendor.name}`;
     axios
       .get(reqURL)
       .then((response) => {

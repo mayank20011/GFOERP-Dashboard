@@ -39,7 +39,7 @@ function AddAuthorities() {
       toast.error("Asign Atleast 1 role");
     } else {
       axios
-        .post("http://localhost:5000/GFOERP/UserLogin/addUser", dataToSend)
+        .post("https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin/addUser", dataToSend)
         .then((response) => {
           if(response.data.success){
             toast.success("New Authority Created");

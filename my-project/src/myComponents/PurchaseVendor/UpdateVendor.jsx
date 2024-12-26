@@ -72,7 +72,7 @@ function UpdateVendor() {
       setButtonLoading(true);
       // End point for the container
       axios
-        .put("http://localhost:5000/GFOERP/PurchaseVendors", dataToBeSend)
+        .put("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors", dataToBeSend)
         .then((response) => {
           if(response.data.success)
             {
@@ -103,7 +103,7 @@ function UpdateVendor() {
   // Fetch vendor names
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/PurchaseVendors")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors")
       .then((response) => {
         setVendorNames(response.data);
         setLoading(false);

@@ -62,7 +62,7 @@ function AddVendor() {
       //  lets make endpoint here
       setLoading(true);
       axios
-        .post("http://localhost:5000/GFOERP/PurchaseVendors", dataToBeSend)
+        .post("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors", dataToBeSend)
         .then((response) => {
           if (response.data.success) {
             toast.success("Created Successfully");
@@ -78,7 +78,7 @@ function AddVendor() {
         });
       
       // to make a vendor in purchaseData
-      axios.post("http://localhost:5000/GFOERP/PurchaseData/createRecord",vendorPurchaseDataSkeleton)
+      axios.post("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseData/createRecord",vendorPurchaseDataSkeleton)
       .then((response)=>{
          if(response.data.success){
              toast.success("Vendor Created in Purchase Data");

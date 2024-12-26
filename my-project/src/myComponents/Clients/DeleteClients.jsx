@@ -23,7 +23,7 @@ function DeleteClient() {
   useEffect(() => {
     if (vendors === null) {
       axios
-        .get("http://localhost:5000/GFOERP/ProductsVendors/vendorNames")
+        .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/vendorNames")
         .then((response) => {
           if (response.data.success) {
             setVendors(response.data.data);
@@ -42,7 +42,7 @@ function DeleteClient() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .delete(`http://localhost:5000/GFOERP/RouteClient/${selectedClient._id}`)
+      .delete(`https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/${selectedClient._id}`)
       .then((response) => {
         if (response.data.success) {
           toast.success(`Deleted SuccessFully`);
@@ -59,7 +59,7 @@ function DeleteClient() {
   }
 
   function loadClients() {
-    const reqURL = `http://localhost:5000/GFOERP/RouteClient/${selectedVendor.name}`;
+    const reqURL = `https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/${selectedVendor.name}`;
     axios
       .get(reqURL)
       .then((response) => {

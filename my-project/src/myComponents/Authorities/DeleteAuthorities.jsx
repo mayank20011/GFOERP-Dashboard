@@ -13,7 +13,7 @@ function DeleteAuthorities() {
   function handleSubmit(e){
     e.preventDefault();
     // api end point
-    axios.delete(`http://localhost:5000/GFOERP/UserLogin/${selectedClient._id}`)
+    axios.delete(`https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin/${selectedClient._id}`)
     .then((response)=>
       {
         if(response.data.success){
@@ -32,7 +32,7 @@ function DeleteAuthorities() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/UserLogin")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin")
       .then((response) => {
         setAuthorities(response.data.data);
         setLoading(false);

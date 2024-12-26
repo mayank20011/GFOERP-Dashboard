@@ -69,7 +69,7 @@ function AddProductVendor() {
       setLoading(true);
       axios
         .post(
-          "http://localhost:5000/GFOERP/ProductsVendors/addVendor",
+          "https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/addVendor",
           dataToSend
         )
         .then((res) => {

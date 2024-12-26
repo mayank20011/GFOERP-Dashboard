@@ -21,7 +21,7 @@ function Login({setLoginAllowed}) {
       toast.error("Password can not be Empty");
     } else {
       setLoading(true);
-      axios.post("http://localhost:5000/GFOERP/UserLogin/",dataToSend)
+      axios.post("https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin/",dataToSend)
         .then((res)=>
           {
             if(res.data.authorization){

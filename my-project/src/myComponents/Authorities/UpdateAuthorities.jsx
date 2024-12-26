@@ -11,7 +11,7 @@ function UpdateAuthorities() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/UserLogin")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin")
       .then((response) => {
         setAuthorities(response.data.data);
         setLoading(false);
@@ -93,7 +93,7 @@ function UpdateAuthorities() {
       dataToSend.id=selectedClient._id;
       console.log(dataToSend);
       axios
-        .put("http://localhost:5000/GFOERP/UserLogin/", dataToSend)
+        .put("https://gfo-erp-backend-api.vercel.app/GFOERP/UserLogin/", dataToSend)
         .then((response) => {
           if(response.data.success){
             toast.success("Updated Successfully");

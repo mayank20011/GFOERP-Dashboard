@@ -14,7 +14,7 @@ function AddClients() {
   // for getting data from the server
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/ProductsVendors/vendorNames")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/vendorNames")
       .then((response) => {
         if (response.data.success) {
           setVendors(response.data.data);
@@ -41,7 +41,7 @@ function AddClients() {
     }
     else{
       setLoading(true);
-      axios.post("http://localhost:5000/GFOERP/RouteClient/",dataToSend)
+      axios.post("https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/",dataToSend)
       .then((response)=>{
         setLoading(false);
         if(response.data.success){

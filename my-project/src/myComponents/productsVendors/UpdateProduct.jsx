@@ -17,7 +17,7 @@ function UpdateProduct() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/ProductsVendors")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors")
       .then((response) => {
         setProductVendor(response.data.data);
         setLoading(false);
@@ -72,7 +72,7 @@ function UpdateProduct() {
       
       console.log(dataToSend);
 
-      axios.put("http://localhost:5000/GFOERP/ProductsVendors/",dataToSend)
+      axios.put("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/",dataToSend)
       .then((response)=>{
         if(response.data.success){
             toast.success("Successfully Updated The Product")

@@ -15,7 +15,7 @@ function AddProduct() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/ProductsVendors")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors")
       .then((response) => {
         setProductVendor(response.data.data);
         setLoading(false);
@@ -50,7 +50,7 @@ function AddProduct() {
     else{
       // End Point Here
       console.log(dataToBeSend);
-      axios.post("http://localhost:5000/GFOERP/ProductsVendors/",dataToBeSend)
+      axios.post("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/",dataToBeSend)
       .then((res)=>{
         if(res.data.success){
          toast.success("Product Saved SuccessFully");

@@ -15,7 +15,7 @@ function DeleteProduct() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/GFOERP/ProductsVendors")
+      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors")
       .then((response) => {
         setProductVendor(response.data.data);
         setLoading(false);
@@ -46,7 +46,7 @@ function DeleteProduct() {
     console.log(dataToSend);
 
     axios
-      .delete(`http://localhost:5000/GFOERP/ProductsVendors/${selectedVendor._id}/${dataToSend.HSN}`)
+      .delete(`https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/${selectedVendor._id}/${dataToSend.HSN}`)
       .then((response) => {
         if (response.data.success) {
           toast.success("Product Deleted Successfully");
