@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 // This component will take a array of obj as input and then create a list from the names from the objects
 
 function ProductFilterComponent({ productVendor, setSelectedVendor }) {
+
   // to create a copy of clients for applying filter
   const [copyProductVendor, setCopyProductVendor] = useState(productVendor);
 

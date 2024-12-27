@@ -4,9 +4,9 @@ import ProductVendor from "../productsVendors/ProductVendor.jsx";
 import AddPurchaseVendor from "../PurchaseVendor/AddPurchaseVendor.jsx";
 import { useState, useRef } from "react";
 import Clients from "../Clients/Clients.jsx";
+import DataView from "../DataView/DataView.jsx";
 
 function Dashboard() {
-
   const nav = useRef(null);
 
   const [showComponent, setShowComponent] = useState("Purchase");
@@ -87,6 +87,16 @@ function Dashboard() {
             <p>Clients</p>
           </div>
 
+          <div
+            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            onClick={() => {
+              closeNav();
+              setShowComponent("viewData");
+            }}
+          >
+            <i className="fa-solid fa-database text-neutral-700 dark:text-neutral-200 w-5 h-5 flex-shrink-0"></i>
+            <p>See Data</p>
+          </div>
         </div>
       </div>
 
@@ -108,6 +118,8 @@ function Dashboard() {
           <ProductVendor />
         ) : showComponent === "Client" ? (
           <Clients />
+        ) : showComponent === "viewData" ? (
+          <DataView />
         ) : null}
       </div>
     </div>
