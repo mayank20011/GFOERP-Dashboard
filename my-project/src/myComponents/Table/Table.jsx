@@ -84,7 +84,7 @@ function Table({ headings, data }) {
             {headings.map((heading, index) => (
               <th
                 key={index}
-                className={`text-white text-xs py-2 px-2 border ${index==0 ? 'sticky left-0 bg-neutral-900': ""}`}
+                className={`text-white text-xs py-2 px-2 border ${index==0 ? 'sticky left-0 bg-green-600': ""}`}
                 style={{ minWidth: "150px", maxWidth: "150px", width: "150px" }}
               >
                 {heading.productName}
@@ -107,14 +107,14 @@ function Table({ headings, data }) {
               id={rowIndex}
             >
               {/* Date of Order */}
-              <td className={`text-xs py-2 border sticky left-0 ${rowIndex%2==0 ? "bg-white text-black" : "text-white bg-neutral-900"}`}>{`${row.time.date}/${row.time.month}/${row.time.year}`}</td>
+              <td className={`text-xs py-2 border sticky left-0 bg-green-600 text-white`}>{`${row.time.date}/${row.time.month}/${row.time.year}`}</td>
               {/* Product Quantities */}
               {headings.slice(1).map((heading, colIndex) => {
                 const product = row.productsSold.find(
                   (p) => p.name === heading.productName
                 );
                 return (
-                  <td key={colIndex} className={`text-xs py-2 border`}>
+                  <td key={colIndex} className={`text-xs py-2 border `}>
                     {product ? product.quantity : "0"}
                   </td>
                 );
