@@ -77,10 +77,11 @@ function PurchaseView() {
                 }
               }
               createdData.vendorName=selectedVendor.name;
-              console.log(createdData);
+              dataArray.push(createdData);
             });
             
             setSpecificClientDataHeadings(headings);
+            console.log(dataArray);
             setSpecificClientData(dataArray);
           }
           setClientDataLoading(false);
