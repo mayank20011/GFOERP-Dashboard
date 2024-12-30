@@ -1,134 +1,43 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import FilterComponent from "../filterComponent/FilterComponent";
-import { toast } from "react-toastify";
-import Table from "../Table/Table.jsx";
+import { useState } from "react";
+import SalesView from "./SalesView.jsx";
+import PurchaseView from "./PurchaseView.jsx";
 
 function DataView() {
-  const [vendorsName, setVendorsName] = useState(null);
-  const [selectedVendor, setSelectedVendor] = useState(null);
-
-  // for clients Loading and clients Fetching
-  const [clientsLoading, setClientsLoading] = useState(false);
-  const [clients, setClients] = useState(null);
-  const [selectedClient, setSelectedClient] = useState(null);
-
-  // for salesData loading and fetching
-  const [salesDataLoading, setSalesDataLoading] = useState(false);
-  const [salesData, setSalesData] = useState(null);
-
-  // for getting vendorName
-  useEffect(() => {
-    axios
-      .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/")
-      .then((response) => {
-        setVendorsName(response.data.data);
-      })
-      .catch(() => {
-        toast.error("Server Problem, While Fetching Data");
-      });
-  }, []);
-
-  // for getting clientsName
-  useEffect(() => {
-    if (selectedVendor) {
-      setSelectedClient(null);
-      setSalesData(null);
-      setClientsLoading(true);
-      axios
-        .get(
-          `https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/${selectedVendor.name}`
-        )
-        .then((response) => {
-          setClients(response.data.data);
-          setClientsLoading(false);
-        })
-        .catch((err) => {
-          toast.error("Server problem");
-          setClientsLoading(false);
-        });
-    }
-  }, [selectedVendor]);
-
-  // for getting salesdata
-  useEffect(() => {
-    if (selectedClient) {
-      setSalesDataLoading(true);
-      axios
-        .get(
-          `https://gfo-erp-backend-api.vercel.app/GFOERP/SalesData/${selectedVendor.name}/${selectedClient.name}`
-        )
-        .then((response) => {
-          if(response.status==201){
-            setSalesData(response.data.data);
-            setSalesDataLoading(false);
-          }
-          else{
-            toast.error(response.data.message);
-            setSalesDataLoading(false);
-          }
-          
-        })
-        .catch((err) => {
-          toast.error(`Server Problem, While Loading Client Data`);
-          console.log(err);
-          setSalesDataLoading(false);
-        });
-    }
-  }, [selectedClient]);
-
-  if (!vendorsName) {
-    return (
-      <p className="text-center mt-4">
-        Loading <span className="animate-pulse"> . . .</span>
-      </p>
-    );
-  }
+  const [view, setView] = useState(null);
 
   return (
-    <div className="flex w-full flex-col justify-center py-12 md:py-0 space-y-4">
-      {/* for Heading */}
-      <h1 className="text-2xl text-center">Sales Data</h1>
+    <div className="flex gap-4 justify-center flex-col py-6">
+      <h1 className="text-xl text-center">
+        Choose Which data You Want to see ?
+      </h1>
 
-      {/* for selecting vendor */}
-      {vendorsName ? (
-        <div className="">
-          <h1>Select vendor :</h1>
-          <FilterComponent
-            clients={vendorsName}
-            setSelectedVendor={setSelectedVendor}
-          />
-        </div>
-      ) : null}
+      <div className="flex gap-4 self-center">
+        <button
+          className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
+            view === "Sale" ? "text-black bg-white" : "text-white"
+          }`}
+          onClick={() => {
+            setView("Sale");
+          }}
+        >
+          Sales Data
+        </button>
+        <button
+          className={`px-4 py-2 border rounded-md shadow-md shadow-slate-100 hover:scale-95 transition ${
+            view === "Purchase" ? "text-black bg-white" : "text-white"
+          }`}
+          onClick={() => {
+            setView("Purchase");
+          }}
+        >
+          Purchase Data
+        </button>
+      </div>
 
-      {/* for selecting clients */}
-      {selectedVendor == null ? null : clientsLoading ? (
-        <p className="text-center">
-          Loading Client Names <span className="animate-pulse">. . .</span>
-        </p>
-      ) : clients == null ? null : (
-        <div className="">
-          <h1>Select Client Name : </h1>
-          <FilterComponent
-            clients={clients}
-            setSelectedVendor={setSelectedClient}
-          />
-        </div>
-      )}
-
-      {/* For Data View */}
-      {selectedClient ? (
-        salesDataLoading ? (
-          <p>
-            Loading data <span className="animate-pulse">. . .</span>
-          </p>
-        ) : salesData ? (
-          <Table headings={selectedVendor.products} data={salesData} />
-        ) : <p>Vendor Has No Data Till Date</p>
-      ) : null}
-
+      {view == null ? null : view == "Sale" ? <SalesView /> : <PurchaseView />}
     </div>
   );
 }
+
 export default DataView;

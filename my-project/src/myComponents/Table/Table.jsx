@@ -1,7 +1,7 @@
 import React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
-function Table({ headings, data }) {
+function Table({ headings, data , pos }) {
 
   const [id, setId] = useState(null);
   // Add the 'Date of Order' to the beginning of the headings array
@@ -10,7 +10,6 @@ function Table({ headings, data }) {
     headings.unshift({ productName: "Date of Order" });
   }
    
-
   // to manage and show a specific row entry
   function rowClick(e) {
     setId(e.target.parentElement.id);
@@ -46,10 +45,10 @@ function Table({ headings, data }) {
             <h1 className="text-3xl font-bold border-b-4 pb-2">{`${data[id].vendorName}`}</h1>
 
             {/* for clientName */}
-            <h1 className="text-2xl font-bold text-slate-700 border-b-4 pb-2">
+            {pos === "Sale" ? <h1 className="text-2xl font-bold text-slate-700 border-b-4 pb-2">
               Client :
               <span className="text-sm text-green-600">{` ${data[id].client}`}</span>
-            </h1>
+            </h1>:null}
 
             {/* for Date*/}
             <h1 className="text-2xl font-bold text-slate-700 border-b-4 pb-2">Date : <span className="text-sm text-green-600 font-bold">{`${data[id].time.date}/${data[id].time.month}/${data[id].time.year}`}</span></h1>
@@ -58,12 +57,12 @@ function Table({ headings, data }) {
             <h1 className="text-2xl font-bold text-slate-700 border-b-4 pb-2">Order Time : <span className="text-sm text-green-600 font-bold">{`${data[id].time.time}`}</span></h1>
 
             {/* for products sold */}
-            <h1 className="text-2xl font-bold pb-2 border-b-4 text-slate-700">Products Sold :</h1>
+            <h1 className="text-2xl font-bold text-slate-700">Products Sold :</h1>
             <div className="h-80 space-y-2 overflow-y-auto w-full ">
               <div className="space-y-2">
                 {data[id].productsSold.map((product) => (
-                  <div className="flex justify-between border-2 p-2" key={product.name}>
-                    <p>{product.name}</p>
+                  <div className="flex justify-between border-2 p-2 hover:border-black cursor-pointer" key={product.name}>
+                    <p className="capitalize">{product.name}</p>
                     <p>{product.quantity}</p>
                   </div>
                 ))}
@@ -74,7 +73,7 @@ function Table({ headings, data }) {
       </div>
 
       {/* for headding */}
-      <h1 className="text-xl">Sales Table Data</h1>
+      <h1 className="text-xl">{pos==="Purchase" ? "Purchase" : "Sales"} Data Table</h1>
 
       {/* for table */}
       <table className="overflow-x-auto border-collapse">
