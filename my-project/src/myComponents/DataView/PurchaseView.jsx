@@ -81,7 +81,6 @@ function PurchaseView() {
             });
             
             setSpecificClientDataHeadings(headings);
-            console.log(dataArray);
             setSpecificClientData(dataArray);
           }
           setClientDataLoading(false);
