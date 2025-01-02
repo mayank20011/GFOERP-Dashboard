@@ -1,0 +1,18 @@
+@keyframes bounce {
+  0%{
+   height:0px;
+  }
+  80%{
+    height:500px;
+  }
+  90%{
+    height:300px;
+  }
+  100%{
+  height:500px;
+  } 
+}
+
+.whiteBgAnimation {
+  animation: bounce 2s ease-in-out forwards;
+}
