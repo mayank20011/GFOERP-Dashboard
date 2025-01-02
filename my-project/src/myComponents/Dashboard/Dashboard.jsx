@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import Clients from "../Clients/Clients.jsx";
 import DataView from "../DataView/DataView.jsx";
 import Ledger from "../Ledger/Ledger.jsx";
+import Payment from "../Payments/payment.jsx";
 
 function Dashboard() {
   const nav = useRef(null);
@@ -110,6 +111,17 @@ function Dashboard() {
             <p>Ledger</p>
           </div>
 
+          <div
+            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            onClick={() => {
+              closeNav();
+              setShowComponent("Payment");
+            }}
+          >
+            <i className="fa-solid fa-dollar text-neutral-700 dark:text-neutral-200 w-5 h- flex-shrink-0"></i>
+            <p>Payments</p>
+          </div>
+
         </div>
       </div>
 
@@ -133,7 +145,11 @@ function Dashboard() {
           <Clients />
         ) : showComponent === "viewData" ? (
           <DataView />
-        ) : showComponent === "Ledger" ? <Ledger/> :null}
+        ) : showComponent === "Ledger" ? (
+          <Ledger/>
+        ) : showComponent === "Payment" ? (
+          <Payment/>
+        ) :null}
       </div>
       
     </div>

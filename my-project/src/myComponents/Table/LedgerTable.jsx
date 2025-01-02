@@ -4,9 +4,11 @@ import LedgerTableBigView from "./LedgerTableBigView.jsx";
 
 function LedgerTable({ headings, fetchedData }) {
   const [showLedger, setShowLedger] = useState(false);
+  const [selectedName, setSelectedName] = useState(null);
 
-  function clickedRow(e) {
+  function clickedRow(obj) {
     setShowLedger(true);
+    setSelectedName(obj.name);
   }
 
   // For Pagination
@@ -36,7 +38,12 @@ function LedgerTable({ headings, fetchedData }) {
   return (
     <>
       {showLedger == true ? (
-        <LedgerTableBigView />
+        selectedName ? (
+          <LedgerTableBigView
+            selectedName={selectedName}
+            setShowLedger={setShowLedger}
+          />
+        ) : null
       ) : (
         <div className="space-y-2 w-full">
           {/* table heading */}
@@ -66,13 +73,16 @@ function LedgerTable({ headings, fetchedData }) {
               {/* table body */}
               <tbody>
                 {dataToShow.map((objTr, index) => (
-                  <tr className="cursor-pointer" onClick={clickedRow} key={index}>
+                  <tr className="cursor-pointer" key={index}>
                     {headings.map((heading, index) => (
                       <th
                         className={`capitalize text-white border min-w-[150px] ${
                           index == 0 ? "bg-green-600 sticky left-0" : ""
                         }`}
                         key={heading}
+                        onClick={() => {
+                          clickedRow(objTr);
+                        }}
                       >
                         {objTr[heading]}
                       </th>
