@@ -41,7 +41,7 @@ function payment() {
       </div>
 
       {/* For Paying and receiving */}
-      <div className="w-full">
+      <div className="w-full sm:w-3/4 mx-auto max-w-[800px]">
         {select == "Pay" ? <PaymentPaid /> : <PaymentReceived />}</div>
     </div>
   );
