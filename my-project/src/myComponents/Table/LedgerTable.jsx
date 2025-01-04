@@ -3,12 +3,14 @@ import { useState } from "react";
 import LedgerTableBigView from "./LedgerTableBigView.jsx";
 
 function LedgerTable({ headings, fetchedData }) {
+
   const [showLedger, setShowLedger] = useState(false);
+
   const [selectedName, setSelectedName] = useState(null);
 
   function clickedRow(obj) {
     setShowLedger(true);
-    setSelectedName(obj.name);
+    setSelectedName(obj);
   }
 
   // For Pagination
@@ -35,6 +37,9 @@ function LedgerTable({ headings, fetchedData }) {
     }
   }
 
+
+
+  
   return (
     <>
       {showLedger == true ? (

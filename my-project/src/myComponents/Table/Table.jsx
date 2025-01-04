@@ -75,7 +75,7 @@ function Table({ headings, data, pos }) {
 
               {/* for Date*/}
               <h1 className="text-2xl font-bold text-slate-700 border-b-4 pb-2">
-                Date :{" "}
+                Date :
                 <span className="text-sm text-green-600 font-bold">{`${thisPageItems[id].time.date}/${thisPageItems[id].time.month}/${thisPageItems[id].time.year}`}</span>
               </h1>
 

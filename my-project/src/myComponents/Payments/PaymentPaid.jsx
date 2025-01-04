@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import FilterComponent from "../filterComponent/FilterComponent";
 
-function PaymentPaid() {
+function PaymentPaid({setSelect}) {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [purchaseVendorsData, setPurchaseVendorsDate] = useState(null);
@@ -88,10 +88,16 @@ function PaymentPaid() {
     } else {
       setSubmitLoading(true);
       axios
-        .post("http://localhost:5000/GFOERP/PurchaseVendors/history", dataToSend)
+        .post(
+          "https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors/history",
+          dataToSend
+        )
         .then((response) => {
-          console.log(response);
-          toast.success("Balance Updated Successfully");
+          if (response.data.success) {
+            toast.success("Balance Updated Successfully");
+            setSelectedVendor(null);
+            setSelect(null);
+          }
           setSubmitLoading(false);
         })
         .catch((err) => {

@@ -42,7 +42,12 @@ function payment() {
 
       {/* For Paying and receiving */}
       <div className="w-full sm:w-3/4 mx-auto max-w-[800px]">
-        {select == "Pay" ? <PaymentPaid /> : <PaymentReceived />}</div>
+        {select == "Pay" ? (
+          <PaymentPaid setSelect={setSelect} />
+        ) : select == "Receive" ? (
+          <PaymentReceived />
+        ) : null}
+      </div>
     </div>
   );
 }
