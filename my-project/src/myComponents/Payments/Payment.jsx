@@ -3,7 +3,7 @@ import { useState } from "react";
 import PaymentPaid from "./PaymentPaid.jsx";
 import PaymentReceived from "./PaymentRecieved.jsx";
 
-function payment() {
+function Payment() {
   const [select, setSelect] = useState("Pay");
 
   return (
@@ -52,4 +52,4 @@ function payment() {
   );
 }
 
-export default payment;
+export default Payment;
