@@ -37,9 +37,6 @@ function LedgerTable({ headings, fetchedData }) {
     }
   }
 
-
-
-  
   return (
     <>
       {showLedger == true ? (

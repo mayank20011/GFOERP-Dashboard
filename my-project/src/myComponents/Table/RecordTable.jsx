@@ -8,8 +8,8 @@ function RecordTable({ headings, data }) {
         <thead className="sticky top-0 bg-white">
           {/* heading rows */}
           <tr className="">
-            {headings.map((heading) => (
-              <th className="font-bold text-sm">{heading}</th>
+            {headings.map((heading, index) => (
+              <th className="font-bold text-sm" key={index}>{heading}</th>
             ))}
           </tr>
         </thead>
