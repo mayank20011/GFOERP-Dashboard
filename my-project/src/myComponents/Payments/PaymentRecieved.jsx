@@ -100,7 +100,6 @@ function PaymentRecieved() {
         lastPendingAmount: selectedClient.balanceAmount,
       },
     };
-    console.log(obj);
     return obj;
   }
 
@@ -125,7 +124,8 @@ function PaymentRecieved() {
           if (response.data.success) {
             toast.success("Balance Updated Successfully");
             setSelectedVendor(null);
-            setSelect(null);
+            setSelectedClient(null);
+            setSpecificVendorClients(null);
           }
           setSubmitLoading(false);
         })
