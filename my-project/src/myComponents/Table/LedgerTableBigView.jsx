@@ -22,9 +22,7 @@ function LedgerTableBigView({ selectedName, setShowLedger }) {
     axios
       .get(`https://gfo-erp-backend-api.vercel.app/GFOERP/PaymentRecords/${selectedName._id}`)
       .then((response) => {
-        console.log(response);
         if (response.data.success) {
-          console.log(response.data.data);
           setClientData(response.data.data);
         } else {
           toast.warning(response.data.message);

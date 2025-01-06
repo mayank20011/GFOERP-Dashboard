@@ -123,7 +123,7 @@ function DeleteClient() {
 
         {selectedClient ? (
           <div className="w-full border-2 border-red-600 rounded-md p-3 select-none cursor-not-allowed">
-            <h1>Edit Client Name :</h1>
+            <h1>Client Name :</h1>
             <input
               type="text"
               placeholder="Edit Name ..."

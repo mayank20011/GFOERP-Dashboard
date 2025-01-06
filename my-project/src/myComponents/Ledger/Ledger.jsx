@@ -9,7 +9,7 @@ function Ledger() {
   const [select, setSelect] = useState("Sales");
 
   return (
-   <div className="pt-6 flex flex-col gap-6 w-full min-h-screen items-center">
+   <div className="pt-6 flex flex-col gap-6 w-full min-h-screen items-center sm:w-3/4 mx-auto max-w-[800px]">
       
       {/* heading */}
       <h1 className="">Sales Ledger or Purchase Ledger ?</h1>

@@ -17,13 +17,16 @@ function UpdateClients() {
   const [selectedClient, setSelectedClient] = useState(null);
 
   // for input changes
-  const [nameValue, setNameValue]= useState('');
+  const [nameValue, setNameValue] = useState("");
+ const [balanceValue, setBalanceValue]=useState("");
 
   // for getting vendorNames and their _id from the server when component render
   useEffect(() => {
     if (vendors === null) {
       axios
-        .get("https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/vendorNames")
+        .get(
+          "https://gfo-erp-backend-api.vercel.app/GFOERP/ProductsVendors/vendorNames"
+        )
         .then((response) => {
           if (response.data.success) {
             setVendors(response.data.data);
@@ -41,28 +44,31 @@ function UpdateClients() {
   // for handling submit
   function handleSubmit(e) {
     e.preventDefault();
-    const dataToSend={};
-    dataToSend[`_id`]=selectedClient._id;
-    dataToSend[`clientName`]=nameValue;
+    const dataToSend = {};
+    dataToSend[`_id`] = selectedClient._id;
+    dataToSend[`clientName`] = nameValue;
+    dataToSend[`balanceAmount`]= balanceValue;
     console.log(dataToSend);
-    if(dataToSend.clientName!=""){
-      axios.put("https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/",dataToSend)
-      .then((response)=>{
-        if(response.data.success){
-          toast.success(`Updated SuccessFully`);
-          setSelectedVendor(null);
-          setSelectedClient(null);
-        }
-        else{
-          toast.error('Something Went Wrong');
-        }
-      })
-      .catch((error)=>{
-        console.log('Server Error');
-        console.log(error);
-      })
-    }
-    else{
+    if (dataToSend.clientName != "") {
+      axios
+        .put(
+          "https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/",
+          dataToSend
+        )
+        .then((response) => {
+          if (response.data.success) {
+            toast.success(`Updated SuccessFully`);
+            setSelectedVendor(null);
+            setSelectedClient(null);
+          } else {
+            toast.error("Something Went Wrong");
+          }
+        })
+        .catch((error) => {
+          console.log("Server Error");
+          console.log(error);
+        });
+    } else {
       toast.error("Enter Client Name");
     }
   }
@@ -73,6 +79,7 @@ function UpdateClients() {
       .get(reqURL)
       .then((response) => {
         if (response.data.success) {
+          console.log(response.data.data);
           setClients(response.data.data);
         } else {
           toast.error(`${response.data.message}`);
@@ -91,14 +98,19 @@ function UpdateClients() {
     }
   }, [selectedVendor]);
 
-  useEffect(()=>{
-    if(selectedClient){
+  useEffect(() => {
+    if (selectedClient) {
       setNameValue(selectedClient.name);
+      setBalanceValue(selectedClient.balanceAmount);
     }
-  },[selectedClient]);
+  }, [selectedClient]);
 
-  function changeClientName(e){
+  function changeClientName(e) {
     setNameValue(e.target.value);
+  }
+
+  function changeBalanceAmount(e){
+    setBalanceValue(e.target.value);
   }
 
   return (
@@ -135,16 +147,35 @@ function UpdateClients() {
         )}
 
         {selectedClient ? (
-          <div className="w-full border-2 border-red-600 rounded-md p-3">
-            <h1>Edit Client Name :</h1>
-            <input
-              type="text"
-              placeholder="Edit Name ..."
-              value={nameValue}
-              name="clientName"
-              className="w-full rounded-md p-2 bg-transparent border-2"
-              onChange={changeClientName}
-            />
+          <div className="w-full border-2 border-red-600 rounded-md p-3 space-y-4">
+            
+            {/* For Name */}
+            <div>
+              <h1>Edit Client Name :</h1>
+              <input
+                type="text"
+                placeholder="Edit Name ..."
+                value={nameValue}
+                name="clientName"
+                className="w-full rounded-md p-2 bg-transparent border-2"
+                onChange={changeClientName}
+              />
+            </div>
+
+            {/* For Balance */}
+            <div>
+              <h1>Edit Balance Amount :</h1>
+              <input
+                type="number"
+                placeholder="Edit Balance Amount ..."
+                value={balanceValue}
+                name="balanceAmount"
+                className="w-full rounded-md p-2 bg-transparent border-2"
+                onChange={changeBalanceAmount}
+                onWheel={(e)=>{e.target.blur()}}
+              />
+            </div>
+
           </div>
         ) : null}
 
