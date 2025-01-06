@@ -48,7 +48,6 @@ function UpdateClients() {
     dataToSend[`_id`] = selectedClient._id;
     dataToSend[`clientName`] = nameValue;
     dataToSend[`balanceAmount`]= balanceValue;
-    console.log(dataToSend);
     if (dataToSend.clientName != "") {
       axios
         .put(
@@ -79,7 +78,6 @@ function UpdateClients() {
       .get(reqURL)
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data.data);
           setClients(response.data.data);
         } else {
           toast.error(`${response.data.message}`);

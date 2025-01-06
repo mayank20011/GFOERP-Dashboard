@@ -8,7 +8,8 @@ export default {
     extend: {
       screens:{
         'sabp':{max :'1200px', min:'768px'},
-        'mv':{max:'800px'}
+        'mv':{max:'800px'},
+        'xxs':{max:'500px'}
       }
     },
   },

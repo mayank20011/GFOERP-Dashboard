@@ -39,7 +39,6 @@ function SalesLedger() {
           `https://gfo-erp-backend-api.vercel.app/GFOERP/RouteClient/${selectedVendor.name}`
         )
         .then((res) => {
-          console.log(res.data.data);
           setSpecificVendorClients(res.data.data);
           setClientsLoading(false);
         })

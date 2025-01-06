@@ -133,7 +133,7 @@ function Dashboard() {
         <i className="fa-solid fa-bars p-2 cursor-pointer text-xl"></i>
       </div>
 
-      <div className="rounded-tl-xl bg-neutral-900 grow md:py-6 px-6 h-screen overflow-y-auto">
+      <div className="rounded-tl-xl bg-neutral-900 grow md:py-6 px-6 h-screen overflow-y-auto ">
         {/* For Content */}
         {showComponent === "Purchase" ? (
           <AddPurchaseVendor />
