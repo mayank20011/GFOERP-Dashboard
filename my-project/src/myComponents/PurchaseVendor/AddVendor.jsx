@@ -57,7 +57,7 @@ function AddVendor() {
       // to make vendor in purchaseData;
       const vendorPurchaseDataSkeleton = {
         vendorName: `${dataToBeSend.name}`,
-        purchaseRecord: [],
+        purchasingRates: [],
       };
       //  lets make endpoint here
       setLoading(true);
