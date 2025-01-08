@@ -53,16 +53,19 @@ function AddVendor() {
     } else if (dataToBeSend.snfRate === 0) {
       toast.error("Enter Snf Rate");
     } else {
-
       // to make vendor in purchaseData;
       const vendorPurchaseDataSkeleton = {
         vendorName: `${dataToBeSend.name}`,
-        purchasingRates: [],
+        purchaseRecord: [],
       };
       //  lets make endpoint here
       setLoading(true);
+      console.log({dataToBeSend, vendorPurchaseDataSkeleton})
       axios
-        .post("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors", dataToBeSend)
+        .post("http://localhost:5000/GFOERP/PurchaseVendors/", {
+          data: dataToBeSend,
+          record: vendorPurchaseDataSkeleton,
+        })
         .then((response) => {
           if (response.data.success) {
             toast.success("Created Successfully");
@@ -75,21 +78,9 @@ function AddVendor() {
         })
         .catch((err) => {
           console.log(err);
+          toast.error("Something Went Wrong, Try Again");
+          setLoading(false);
         });
-      
-      // to make a vendor in purchaseData
-      axios.post("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseData/createRecord",vendorPurchaseDataSkeleton)
-      .then((response)=>{
-         if(response.data.success){
-             toast.success("Vendor Created in Purchase Data");
-         }
-         else{
-           toast.error("Can't Create Vendor in purchase Data");
-         }
-      })
-      .catch((err)=>{
-         toast.error('Server Problem');
-      });
     }
   }
 
