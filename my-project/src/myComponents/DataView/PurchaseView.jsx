@@ -19,12 +19,8 @@ function PurchaseView() {
     setClientsLoading(true);
     if (vendorsName == null) {
       axios
-        .get("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseData/")
+        .get("http://localhost:5000/GFOERP/PurchaseVendors/names")
         .then((response) => {
-          response.data.data.forEach((obj) => {
-            obj["name"] = obj.vendorName;
-            delete obj.vendorName;
-          });
           setVendorsName(response.data.data);
           setClientsLoading(false);
         })
@@ -38,11 +34,12 @@ function PurchaseView() {
   // for getting a specific vendor's data
   useEffect(() => {
     if (selectedVendor) {
+      setSpecificClientData(null);
       setClientDataLoading(true);
       axios
-        .get(`https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseData/${selectedVendor._id}`)
+        .get(`http://localhost:5000/GFOERP/PurchaseData/${selectedVendor.name}`)
         .then((response) => {
-          if (response.data.success) {
+          if (response.data.data.length>0) {
             const headings = [
               { productName: "amount" },
               { productName: "fat" },
@@ -55,31 +52,33 @@ function PurchaseView() {
             let dataArray = [];
 
             response.data.data.forEach((obj) => {
-              let createdData = { productsSold: [], time: {},vendorName:"" };
+              let createdData = { productsSold: [], time: {}, vendorName: "" };
+              createdData.vendorName = obj.vendorName;
+              createdData.time = obj.purchaseRecord.dateAndTime;
 
-              for (const [key, value] of Object.entries(obj)) {
-                if (key === "dateAndTime") {
-                  createdData.time = value;
-                } else {
-                  if (key === "purchasingRates") {
-                    for (const [k, v] of Object.entries(value)) {
-                      createdData.productsSold.push({
-                        name: `${k}`,
-                        quantity: `${v}`,
-                      });
-                    }
-                  } else {
+              for (const [key, value] of Object.entries(obj.purchaseRecord)) {
+                if (key === "PurchasingRates") {
+                  for (const [k, v] of Object.entries(value)) {
                     createdData.productsSold.push({
-                      name: `${key}`,
-                      quantity: `${value}`,
+                      name: `${k}`,
+                      quantity: `${v}`,
                     });
                   }
+                } else if(key == "dateAndTime"){
+
+                }
+                else {
+                  createdData.productsSold.push({
+                    name: `${key}`,
+                    quantity: `${value}`,
+                  });
                 }
               }
-              createdData.vendorName=selectedVendor.name;
+
+              createdData.vendorName = selectedVendor.name;
               dataArray.push(createdData);
             });
-            
+
             setSpecificClientDataHeadings(headings);
             setSpecificClientData(dataArray);
           }

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function AddVendor() {
   const [loading, setLoading] = useState(false);
-
+  
   // for clearing form
   const form = useRef(null);
 
@@ -53,21 +53,12 @@ function AddVendor() {
     } else if (dataToBeSend.snfRate === 0) {
       toast.error("Enter Snf Rate");
     } else {
-      // to make vendor in purchaseData;
-      const vendorPurchaseDataSkeleton = {
-        vendorName: `${dataToBeSend.name}`,
-        purchaseRecord: [],
-      };
+    
       //  lets make endpoint here
       setLoading(true);
-      console.log({ dataToBeSend, vendorPurchaseDataSkeleton });
       axios
         .post(
-          "https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors/",
-          {
-            data: dataToBeSend,
-            record: vendorPurchaseDataSkeleton,
-          }
+          "http://localhost:5000/GFOERP/PurchaseVendors/",dataToBeSend
         )
         .then((response) => {
           if (response.data.success) {

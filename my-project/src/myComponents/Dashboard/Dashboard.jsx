@@ -3,10 +3,10 @@ import Authority from "../Authorities/Authority.jsx";
 import ProductVendor from "../productsVendors/ProductVendor.jsx";
 import AddPurchaseVendor from "../PurchaseVendor/AddPurchaseVendor.jsx";
 import { useState, useRef } from "react";
-import Clients from "../Clients/Clients.jsx";
+import Clients from "../Clients/clients.jsx";
 import DataView from "../DataView/DataView.jsx";
 import Ledger from "../Ledger/Ledger.jsx";
-import Payment from "../Payments/Payment.jsx";
+import Payment from "../Payments/payment.jsx";
 
 function Dashboard() {
   const nav = useRef(null);
@@ -46,82 +46,137 @@ function Dashboard() {
         {/* for clicks */}
         <div className="flex flex-col gap-2 p-2 space-y-2">
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Purchase"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Purchase");
             }}
           >
-            <i className="fa-solid fa-truck text-neutral-700 dark:text-neutral-200 w-5 h-5 flex-shrink-0"></i>
+            <i
+              className={`fa-solid fa-truck w-5 h-5 flex-shrink-0 ${
+                showComponent == "Purchase" ? "text-neural-700" : "text-white"
+              } `}
+            ></i>
             <p>Purchase Vendor</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Product"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Product");
             }}
           >
-            <i className="fa-regular fa-user text-neutral-700 w-5 h-5 dark:text-neutral-200 flex-shrink-0"></i>
+            <i
+              className={`fa-regular fa-user text-neutral-700 w-5 h-5 flex-shrink-0 ${
+                showComponent == "Product" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>Sales Vendor</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Authority"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Authority");
             }}
           >
-            <i className="fa-solid fa-user-plus text-neutral-700 dark:text-neutral-200 w-5 h-5 flex-shrink-0"></i>
+            <i
+              className={`fa-solid fa-user-plus text-neutral-700 w-5 h-5 flex-shrink-0 ${
+                showComponent == "Authority" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>Add Authority</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Client"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Client");
             }}
           >
-            <i className="fa-regular fa-user text-neutral-700 w-5 h-5 dark:text-neutral-200 flex-shrink-0"></i>
+            <i
+              className={`fa-regular fa-user text-neutral-7 w-5 h-5 flex-shrink-0 ${
+                showComponent == "Client" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>Clients</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "viewData"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("viewData");
             }}
           >
-            <i className="fa-solid fa-database text-neutral-700 dark:text-neutral-200 w-5 h-5 flex-shrink-0"></i>
+            <i
+              className={`fa-solid fa-database text-neutral-700 w-5 h-5 flex-shrink-0 ${
+                showComponent == "viewData" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>See Data</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Ledger"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Ledger");
             }}
           >
-            <i className="fa-solid fa-money-check-dollar text-neutral-700 dark:text-neutral-200 w-5 h- flex-shrink-0"></i>
+            <i
+              className={`fa-solid fa-money-check-dollar text-neutral-700 w-5 h- flex-shrink-0 ${
+                showComponent == "Ledger" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>Ledger</p>
           </div>
 
           <div
-            className="flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none"
+            className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
+              showComponent == "Payment"
+                ? "bg-white shadow-md shadow-white text-black"
+                : ""
+            }`}
             onClick={() => {
               closeNav();
               setShowComponent("Payment");
             }}
           >
-            <i className="fa-solid fa-dollar text-neutral-700 dark:text-neutral-200 w-5 h- flex-shrink-0"></i>
+            <i
+              className={`fa-solid fa-dollar text-neutral-700 w-5 h- flex-shrink-0 ${
+                showComponent == "Payment" ? "text-neural-700" : "text-white"
+              }`}
+            ></i>
             <p>Payments</p>
           </div>
-
         </div>
       </div>
 
@@ -146,12 +201,11 @@ function Dashboard() {
         ) : showComponent === "viewData" ? (
           <DataView />
         ) : showComponent === "Ledger" ? (
-          <Ledger/>
+          <Ledger />
         ) : showComponent === "Payment" ? (
-          <Payment/>
-        ) :null}
+          <Payment />
+        ) : null}
       </div>
-      
     </div>
   );
 }

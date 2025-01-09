@@ -87,7 +87,7 @@ function Table({ headings, data, pos }) {
 
               {/* for products sold */}
               <h1 className="text-2xl font-bold text-slate-700">
-                Products Sold :
+                { pos== "Sale" ?"Products Sold :": "Record :"}
               </h1>
               <div className="h-80 space-y-2 overflow-y-auto w-full ">
                 <div className="space-y-2">
