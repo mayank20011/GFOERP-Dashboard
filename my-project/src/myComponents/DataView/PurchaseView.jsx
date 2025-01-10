@@ -19,7 +19,7 @@ function PurchaseView() {
     setClientsLoading(true);
     if (vendorsName == null) {
       axios
-        .get("http://localhost:5000/GFOERP/PurchaseVendors/names")
+        .get("https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseVendors/names")
         .then((response) => {
           setVendorsName(response.data.data);
           setClientsLoading(false);
@@ -37,7 +37,7 @@ function PurchaseView() {
       setSpecificClientData(null);
       setClientDataLoading(true);
       axios
-        .get(`http://localhost:5000/GFOERP/PurchaseData/${selectedVendor.name}`)
+        .get(`https://gfo-erp-backend-api.vercel.app/GFOERP/PurchaseData/${selectedVendor.name}`)
         .then((response) => {
           if (response.data.data.length>0) {
             const headings = [
