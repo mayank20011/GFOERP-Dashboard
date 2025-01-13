@@ -26,7 +26,14 @@ function Login({setLoginAllowed}) {
           {
             if(res.data.authorization){
               if(res.data.roles.includes('dashBoard')){
-               setLoginAllowed(true);}
+                const login={
+                  "handler":dataToSend.name,
+                  "authorization":true,
+                  "showComponent":"Purchase"
+                }
+                sessionStorage.setItem('login',JSON.stringify(login));
+                setLoginAllowed(true);
+              }
                else{
                 toast.warning("Access Denied");
                }

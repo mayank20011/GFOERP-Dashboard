@@ -21,6 +21,15 @@ function Dashboard() {
     nav.current.classList.add("mv:-translate-x-full");
   }
 
+  function createStringifyObj(text) {
+    const obj = {
+      handler: `${JSON.parse(sessionStorage.getItem("login")).handler}`,
+      authorization: true,
+      showComponent: `${text}`,
+    };
+    return JSON.stringify(obj);
+  }
+
   return (
     <div className="flex text-white w-full min-h-screen bg-neutral-700 mv:flex-col">
       {/* for left Nav */}
@@ -47,18 +56,19 @@ function Dashboard() {
         <div className="flex flex-col gap-2 p-2 space-y-2">
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Purchase"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Purchase"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Purchase");
+              sessionStorage.setItem("login", createStringifyObj("Purchase"));
             }}
           >
             <i
               className={`fa-solid fa-truck w-5 h-5 flex-shrink-0 ${
-                showComponent == "Purchase" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Purchase" ? "text-neural-700" : "text-white"
               } `}
             ></i>
             <p>Purchase Vendor</p>
@@ -66,18 +76,19 @@ function Dashboard() {
 
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Product"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Product"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Product");
+              sessionStorage.setItem("login", createStringifyObj("Product"));
             }}
           >
             <i
               className={`fa-regular fa-user text-neutral-700 w-5 h-5 flex-shrink-0 ${
-                showComponent == "Product" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Product" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>Sales Vendor</p>
@@ -85,18 +96,19 @@ function Dashboard() {
 
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Authority"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Authority"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Authority");
+              sessionStorage.setItem("login", createStringifyObj("Authority"));
             }}
           >
             <i
               className={`fa-solid fa-user-plus text-neutral-700 w-5 h-5 flex-shrink-0 ${
-                showComponent == "Authority" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Authority" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>Add Authority</p>
@@ -104,37 +116,40 @@ function Dashboard() {
 
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Client"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Client"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Client");
+              sessionStorage.setItem("login", createStringifyObj("Client"));
             }}
           >
             <i
               className={`fa-regular fa-user text-neutral-7 w-5 h-5 flex-shrink-0 ${
-                showComponent == "Client" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Client" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>Clients</p>
           </div>
-
+          
+          {/* see Data */}
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "viewData"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "viewData"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("viewData");
+              sessionStorage.setItem("login", createStringifyObj("viewData"));
             }}
           >
             <i
               className={`fa-solid fa-database text-neutral-700 w-5 h-5 flex-shrink-0 ${
-                showComponent == "viewData" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "viewData" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>See Data</p>
@@ -142,18 +157,19 @@ function Dashboard() {
 
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Ledger"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Ledger"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Ledger");
+              sessionStorage.setItem("login", createStringifyObj("Ledger"));
             }}
           >
             <i
               className={`fa-solid fa-money-check-dollar text-neutral-700 w-5 h- flex-shrink-0 ${
-                showComponent == "Ledger" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Ledger" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>Ledger</p>
@@ -161,18 +177,19 @@ function Dashboard() {
 
           <div
             className={`flex gap-4 items-center p-3 border cursor-pointer hover:scale-95 transition mv:border-none ${
-              showComponent == "Payment"
+              JSON.parse(sessionStorage.getItem("login")).showComponent == "Payment"
                 ? "bg-white shadow-md shadow-white text-black"
                 : ""
             }`}
             onClick={() => {
               closeNav();
               setShowComponent("Payment");
+              sessionStorage.setItem("login", createStringifyObj("Payment"));
             }}
           >
             <i
               className={`fa-solid fa-dollar text-neutral-700 w-5 h- flex-shrink-0 ${
-                showComponent == "Payment" ? "text-neural-700" : "text-white"
+                JSON.parse(sessionStorage.getItem("login")).showComponent == "Payment" ? "text-neural-700" : "text-white"
               }`}
             ></i>
             <p>Payments</p>
@@ -190,19 +207,26 @@ function Dashboard() {
 
       <div className="rounded-tl-xl bg-neutral-900 grow md:py-6 px-6 h-screen overflow-y-auto ">
         {/* For Content */}
-        {showComponent === "Purchase" ? (
+        {JSON.parse(sessionStorage.getItem("login")).showComponent ===
+        "Purchase" ? (
           <AddPurchaseVendor />
-        ) : showComponent === "Authority" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "Authority" ? (
           <Authority />
-        ) : showComponent === "Product" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "Product" ? (
           <ProductVendor />
-        ) : showComponent === "Client" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "Client" ? (
           <Clients />
-        ) : showComponent === "viewData" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "viewData" ? (
           <DataView />
-        ) : showComponent === "Ledger" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "Ledger" ? (
           <Ledger />
-        ) : showComponent === "Payment" ? (
+        ) : JSON.parse(sessionStorage.getItem("login")).showComponent ===
+          "Payment" ? (
           <Payment />
         ) : null}
       </div>
