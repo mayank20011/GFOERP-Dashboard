@@ -3,7 +3,7 @@ import Authority from "../Authorities/Authority.jsx";
 import ProductVendor from "../productsVendors/ProductVendor.jsx";
 import AddPurchaseVendor from "../PurchaseVendor/AddPurchaseVendor.jsx";
 import { useState, useRef } from "react";
-import Clients from "../Clients/clients.jsx";
+import Clients from "../Clients/Clients.jsx";
 import DataView from "../DataView/DataView.jsx";
 import Ledger from "../Ledger/Ledger.jsx";
 import Payment from "../Payments/Payment.jsx";
