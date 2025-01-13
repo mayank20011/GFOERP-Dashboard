@@ -6,7 +6,7 @@ import { useState, useRef } from "react";
 import Clients from "../Clients/clients.jsx";
 import DataView from "../DataView/DataView.jsx";
 import Ledger from "../Ledger/Ledger.jsx";
-import Payment from "../Payments/payment.jsx";
+import Payment from "../Payments/Payment.jsx";
 
 function Dashboard() {
   const nav = useRef(null);
