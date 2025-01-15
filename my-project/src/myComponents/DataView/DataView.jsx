@@ -7,7 +7,7 @@ function DataView() {
   const [view, setView] = useState(null);
 
   return (
-    <div className="flex gap-4 justify-center flex-col py-6">
+    <div className="flex gap-4 justify-center flex-col py-6 w-3/4 mv:w-full mx-auto ">
       <h1 className="text-xl text-center">
         Choose Which data You Want to see ?
       </h1>
